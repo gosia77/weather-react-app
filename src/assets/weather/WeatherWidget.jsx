@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// fahrenheit to celcius
+
+function kelvinToCelsius(kelvin) {
+  return (kelvin - 273.15);
+}
+
 const WeatherWidget = () => {
   const [city, setCity] = useState('');
   const [weatherData, setWeatherData] = useState(null);
@@ -53,8 +59,10 @@ const WeatherWidget = () => {
       ) : weatherData ? (
         <div>
           <h2>{weatherData.name}</h2>
-          <p>Temperature: {weatherData.main.temp}°C</p>
-          <p>Description: {weatherData.description}</p>
+          <p>Temperature: {Math.round(kelvinToCelsius(weatherData.main.temp))}°C</p>
+          <p>Humidity: {weatherData.main.humidity}</p>
+          <p>Pressure: {weatherData.main.pressure}</p>
+          <p>Clouds: {weatherData.clouds.all}</p>
           {/* Dodaj więcej danych o pogodzie według potrzeb */}
         </div>
       ) : (
