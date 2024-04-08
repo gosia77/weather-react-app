@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// fahrenheit to celcius
+// kelvin to celcius
 
 function kelvinToCelsius(kelvin) {
   return (kelvin - 273.15);
@@ -19,7 +19,7 @@ const WeatherWidget = () => {
       console.log('fetch');
       try {
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=5091a8271637b49a785eb2b101fbbbf4`);
-        setWeatherData(response.data); // Zakładając, że otrzymasz dane w formacie JSON
+        setWeatherData(response.data); 
 
         setLoading(false);
         console.log(response);
@@ -37,10 +37,7 @@ const WeatherWidget = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('handleSubmit');
-    // Wysyłamy żądanie tylko jeśli zostało wprowadzone miasto
-    // if (city.trim()) {
-    //   setCity(city.trim());
-    // }
+    
   };
 
   return (
@@ -60,10 +57,9 @@ const WeatherWidget = () => {
         <div>
           <h2>{weatherData.name}</h2>
           <p>Temperature: {Math.round(kelvinToCelsius(weatherData.main.temp))}°C</p>
-          <p>Humidity: {weatherData.main.humidity}</p>
-          <p>Pressure: {weatherData.main.pressure}</p>
-          <p>Clouds: {weatherData.clouds.all}</p>
-          {/* Dodaj więcej danych o pogodzie według potrzeb */}
+          <p>Humidity: {weatherData.main.humidity}%</p>
+          <p>Pressure: {weatherData.main.pressure}hPa</p>
+          <p>Clouds: {weatherData.clouds.all}%</p>
         </div>
       ) : (
         <p>No weather data available.</p>
